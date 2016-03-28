@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>Hola mundo</h1>
-	<form>
+	<form id="fm_nuevo">
 		<div class="group-form">
 			<label for="nombre">Nombre:</label>
 			<input type="text" name="nombre" id="nombre" class="txt-uppercase" >
@@ -25,10 +25,18 @@
 		</div>
 		<div class="group-form">
 			<label for="genero">Genero:</label>
-			<input type="radio" name="rb_genere" id="rb_genere_Male">Masculino
-			<input type="radio" name="rb_genere" id="rb_genere_Female">Femenino
+			<input type="radio" name="rb_genere" id="rb_genere_Male" value=1><label for="rb_genere_Male">Masculino</label> 
+			<input type="radio" name="rb_genere" id="rb_genere_Female" value=2><label for="rb_genere_Female">Femenino</label>
 			<span class="msg"></span>
 		</div>
+		<div class="group-form">
+			<label for="intereses">Selecciona tus intereses:</label>
+			<input type="checkbox" name="cbhobies" id="cbipeliculas" value=1><label for="cbipeliculas">Peliculas</label> 
+			<input type="checkbox" name="cbhobies" id="cbilibros" value=2><label for="cbilibros">Libros</label>
+			<input type="checkbox" name="cbhobies" id="cbiinternet" value=3><label for="cbiinternet">Internet</label>
+			<span class="msg"></span>
+		</div>
+		<input type="submit" value="Enviar" id="envia">
 	</form>
 	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="cookie.js"></script>
