@@ -3,7 +3,12 @@ function TypeMSG (key,val) {
 	this.val = val;
 }
 
-/** Clase para validar elementos de un formulario **/
+/** Clase para validar elementos de un formulario
+*	element = representa el input al que se le van a validar campos
+*	elementMSG = representa el elemento en el cual vamos a colocar el mensaje
+*	arrValidate = arreglo de las validaciones que queremos hacer
+*	arrTypeEvent = arreglo que nos indica en que momento se realizan las validaciones
+ **/
 function Validate (element, elementMSG, arrValidate,arrTypeEvent) {
 	this.element = element;
 	this.errores = [];
