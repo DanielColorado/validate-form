@@ -8,6 +8,8 @@ function TypeMSG (key,val) {
 *	elementMSG = representa el elemento en el cual vamos a colocar el mensaje
 *	arrValidate = arreglo de las validaciones que queremos hacer
 *	arrTypeEvent = arreglo que nos indica en que momento se realizan las validaciones
+*	Si no encuentra arrValidate se asigna como un arreglo nuevo
+*	Si no encuentra arrTypeEvent se asigna como un arreglo nuevo 
  **/
 function Validate (element, elementMSG, arrValidate,arrTypeEvent) {
 	this.element = element;
@@ -49,6 +51,8 @@ Validate.prototype.validateAll = function(cleanArray) {
 	for(var item in this.arrValidate){
 		if(this.arrValidate[item][0] === "required")
 			this.evalLength();
+		if(this.arrValidate[item][0] === "email")
+			this.validateEmail(this.arrValidate[item][1]);
 		if(this.arrValidate[item][0] === "checked")
 			this.isCheckedOne();
 		if(this.arrValidate[item][0] === "maxLength")
@@ -121,6 +125,19 @@ Validate.prototype.minLength = function(minLength) {
 Validate.prototype.minMaxLength = function(minLength, maxLength) {
 	this.minLength(minLength);
 	this.maxLength(maxLength);
+};
+
+/** Funcion que nos permite validar un input para que sea un email valido de acuerdo al patron que le pasemos
+*	o usamos el patron que viene por default en la clase
+ **/
+Validate.prototype.validateEmail = function(pattern) {
+	var patternTemp = pattern || /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+	var emailText = this.element.value;
+
+	if(patternTemp.test(emailText))
+		this.errores.push(["Correo valido",new TypeMSG(1,"correct")]);
+	else
+		this.errores.push(["Parece ser que el email no es valido",new TypeMSG(3,"error")]);
 };
 
 /** Funcion que remueve y agrega una clase al elemento del mensaje de error **/
