@@ -28,53 +28,53 @@ document.onkeyup = function () {
 	});
 }
 
+/** Nombre de los inputs **/
 var nombre = hashTag("nombre");
-var ValidateInput = new Validate(nombre, nombre.nextElementSibling,[["required"],["minLength"]],["blur"]);
-
-
 var apellido = hashTag("apellido_paterno");
-var ValidateInputAp = new Validate(apellido, apellido.nextElementSibling,[["required"],["minLength",5]],["focus","keyup"]);
-
-
 var apellidoM = hashTag("apellido_materno");
-var ValidateInputAm = new Validate(apellidoM, apellidoM.nextElementSibling,[["required"],["minMaxLength",3,10]],["keyup"]);
-
-
 var genere = byName("rb_genere");
-var ValidateInputG = new Validate(genere, genere[genere.length-1].nextElementSibling.nextElementSibling,[["checked"]],["clickRB"]);
-
 var hobbies = byName("cbhobies");
+
+/** Boton de enviar el formulario **/
+var botonEnvia = hashTag("envia");
+/** Formulario **/
+var formulario = hashTag("fm_nuevo");
+
+/** Arreglo donde se guarda los elementos a validar **/
+var arreglo_inputs = [];
+
+/** Campos a validar **/
+var ValidateInput = new Validate(nombre, nombre.nextElementSibling,[["required"],["minLength",2]],["blur"]);
+var ValidateInputAp = new Validate(apellido, apellido.nextElementSibling,[["required"],["minLength",5]],["focus","keyup"]);
+var ValidateInputAm = new Validate(apellidoM, apellidoM.nextElementSibling,[["required"],["minMaxLength",3,10]],["keyup"]);
+var ValidateInputG = new Validate(genere, genere[genere.length-1].nextElementSibling.nextElementSibling,[["checked"]],["clickRB"]);
 var ValidateInputH = new Validate(hobbies, hobbies[hobbies.length-1].nextElementSibling.nextElementSibling,[["checked"]],["clickRB"]);
 
-var botonEnvia = hashTag("envia");
-var formulario = hashTag("fm_nuevo");
+/** Ingresamos todos los campos a validar en el arreglo **/
+arreglo_inputs.push(ValidateInput);
+arreglo_inputs.push(ValidateInputAp);
+arreglo_inputs.push(ValidateInputAm);
+arreglo_inputs.push(ValidateInputG);
+arreglo_inputs.push(ValidateInputH);
+
+/** Cuando damos click en el boton de enviar validamos todos los campos si uno tiene error no mandamos el formulario **/
 botonEnvia.onclick = function (event) {
 	event.preventDefault();
-	console.log(this);
-	ValidateInput.validateAll(false);
-	ValidateInputAp.validateAll(false);
-	ValidateInputAm.validateAll(false);
-	ValidateInputG.validateAll(false);
-	ValidateInputH.validateAll(false);
-
-	var arrPass = [ValidateInput.hasAnError(),ValidateInputAp.hasAnError(),ValidateInputAm.hasAnError(),ValidateInputG.hasAnError(),ValidateInputH.hasAnError()];
-
-	for(var item in arrPass){
-		if(arrPass[item] === true){
-			clean();
-			return false;
+	var returnBool = true;
+	for(var item in arreglo_inputs){
+		arreglo_inputs[item].validateAll();
+		if(arreglo_inputs[item].hasAnError()){
+			returnBool = false;
 		}
 	}
 	clean();
-	formulario.submit();
-	return true;
+	if(returnBool)formulario.submit();
+	return returnBool;
 }
 
 /** Funcion para limpiar los arreglos de errores **/
 function clean () {
-	ValidateInput.Clear();
-	ValidateInputAp.Clear();
-	ValidateInputAm.Clear();
-	ValidateInputG.Clear();
-	ValidateInputH.Clear();
+	for(var item in arreglo_inputs){
+		arreglo_inputs[item].Clear();
+	}
 }
