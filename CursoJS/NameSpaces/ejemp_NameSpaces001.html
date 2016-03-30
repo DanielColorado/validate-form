@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ejemplo de namespaces: Dibujar con Canvas</title>
+	<style>
+	h1{text-align: center;margin: 0;}
+	body{width: 500px;margin: 0 auto;}
+	#canvas{border: dotted 1px yellow;background: #eee;}
+	</style>
+	<script>
+		DIBUJO = {
+			canvas: null,
+			bandera: false,
+			pos: {},
+			ctx: null,
+			inicio: function() {
+				if(this.canvas && this.canvas.getContext){
+					this.ctx = this.canvas.getContext("2d");
+					if(this.ctx){
+						return this.ctx;
+					}else{
+						alert("No acepta el navegador el CANVAS");
+					}
+				}else{
+					alert("No acepta el navegador el CANVAS");
+				}
+			},
+			ajusta: function(xx,yy) {
+				var posCanvas = this.canvas.getBoundingClientRect();
+				var x = xx - posCanvas.left;
+				var y = yy -posCanvas.top;
+				return {x:x,y:y};
+			},
+			dibuja: function(inicio,fin) {
+				this.ctx.beginPath();
+				this.ctx.strokeStyle = "black";
+				this.ctx.lineWidth = 1;
+				this.ctx.moveTo(inicio.x,inicio.y);
+				this.ctx.lineTo(fin.x,fin.y);
+				this.ctx.stroke();
+			}
+		}
+		window.onload = function() {
+			DIBUJO.canvas = document.getElementById("canvas");
+			/** Eventos **/
+			DIBUJO.canvas.onmousedown = function(e) {
+				this.pos = DIBUJO.ajusta(e.clientX,e.clientY);
+				this.bandera = true;
+			};
+			DIBUJO.canvas.onmouseup = function(e) {
+				this.bandera = false;
+			};
+			DIBUJO.canvas.onmousemove = function(e) {
+				if(this.bandera){
+					var fin = DIBUJO.ajusta(e.clientX,e.clientY);
+					DIBUJO.dibuja(this.pos,fin);
+					this.pos = fin;
+				}
+			};
+			/** INICIO **/
+			DIBUJO.inicio();
+		};
+	</script>
+</head>
+<body>
+	<h1>Dibuja con boton sostenido</h1>
+	<canvas id="canvas" width="500px" height="300px">
+		Tu navegador no soporta canvas
+	</canvas>
+</body>
+</html>

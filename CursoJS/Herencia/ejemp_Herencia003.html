@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Primer ejemplo de herencia</title>
+	<script>
+	function enumerar (objeto) {
+		for(var prop in objeto){
+			document.write((objeto.hasOwnProperty(prop)) ? "Own" : "prototype");
+			document.write(": "+ prop +" = "+ objeto[prop]);
+			document.write("<br>");
+		}
+		document.write("<br>");
+	}
+
+	function Animal () {}
+	Animal.prototype = {
+		nombre: "Animal",
+		toString: function () {
+			return this.nombre;
+		}
+	}
+
+	function Mamifero () {}
+	//
+	// Copiamos prototype
+	//
+	Mamifero.prototype = Animal.prototype;
+	Mamifero.prototype.nombre =  "Mamifero";
+
+	function Gato (color,genero) {
+		this.color = color;
+		this.genero = genero;
+	}
+
+	//Herencia
+	Gato.prototype = Mamifero.prototype;
+	//Modificamos el prototipo
+	Gato.prototype.nombre = "Gato";
+	Gato.prototype.saludar = function (argument) {
+		return "Hola, soy un " + this.nombre + " de color " + this.color + " y soy " + this.genero;
+	};
+	//Instancia
+	var benito = new Gato("azul","macho");
+	benito.nombre = "Benito";
+	enumerar(benito);
+	var cucho = new Animal();
+	enumerar(cucho);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

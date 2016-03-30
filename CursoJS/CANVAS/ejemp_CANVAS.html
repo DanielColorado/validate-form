@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>POO con JS</title>
+	<style>
+	body{width: 500px;margin: 0 auto;}
+	h1{text-align: center;}
+	#canvas{border: dotted 1px yellow;background: #eee;}
+	</style>
+	<script>
+	function Canvas () {
+		this.canvas = null;
+		this.ctx = null;
+		this.imagen = new Image();
+	}
+	Canvas.prototype = {
+		inicio: function() {
+			if(this.canvas && this.canvas.getContext){
+				this.ctx = this.canvas.getContext("2d");
+				if(this.ctx){
+					return this.ctx;
+				}else{
+					return null;
+				}
+			}
+		},
+		procesaImagen: function() {
+			canvas.limpiar();
+			this.ctx.drawImage(this.imagen,10,10);
+		},
+		filtro: function(tipo) {
+			switch(tipo){
+				case "grises": break;
+				case "oscurecer": new Oscurecer(this);break;
+				case "flip": new Flip_Horizontal(this);break;
+			}
+		},
+		limpiar: function() {
+			var w = this.imagen.width;
+			var h = this.imagen.height;
+			this.ctx.clearRect(250,10,w,h);
+		},
+		cargar: function(archivo) {
+			this.imagen.src = "images/"+archivo;
+			this.imagen.onload = function(e) {
+				canvas.procesaImagen();
+			};
+		},
+		dibujar: function(datos) {
+			this.ctx.putImageData(datos,250,10);
+		}
+	};
+	function Filtro (canvas) {
+		this.w = canvas.imagen.width;
+		this.h = canvas.imagen.height;
+		this.imagenData = canvas.ctx.getImageData(10,10,this.w,this.h);
+		this.data = this.imagenData.data;
+	}
+	function Oscurecer (canvas) {
+		f = new Filtro(canvas);
+		for(var i=0; i<f.data.length; i+=4){
+			f.data[i] -= 100;//rojo
+			f.data[i+1] -= 100;//verde
+			f.data[i+2] -= 100;//azul
+		}
+		canvas.dibujar(f.imagenData);
+	}
+	function Flip_Horizontal (canvas) {
+		f = new Filtro(canvas);
+		for (var x = 0; x < f.w/2; x++) {
+			for(var y=0; y <f.h;y++){
+				var i = (y*f.w+x);
+				var j = (y*f.w+((f.w-1)-x));
+
+				//Valores Temporales
+				var p1 = f.data[i*4];
+				var p2 = f.data[i*4+1];
+				var p3 = f.data[i*4+2];
+
+				f.data[i*4] = f.data[j*4];
+				f.data[i*4+1] = f.data[j*4+1];
+				f.data[i*4+2] = f.data[j*4+2];
+
+				f.data[j*4] = p1;
+				f.data[j*4+1] = p2;
+				f.data[j*4+2] = p3;
+			}
+		}
+		canvas.dibujar(f.imagenData);
+	}
+	window.onload = function() {
+		var archivoSelect = document.getElementById("archivo");
+		var filterSelect = document.getElementById("filtro");
+		/** EVENTOS **/
+		archivoSelect.onchange = function(e) {
+			canvas.cargar(archivoSelect.value);
+		};
+		filterSelect.onchange = function(e) {
+			canvas.filtro(filterSelect.value);
+		};
+		/** CODIGO **/
+		canvas = new Canvas();
+		canvas.canvas = document.getElementById("canvas");
+		if(canvas.inicio()){
+			canvas.cargar("img1.jpg");
+		}else{
+			alert("Tu navegador no soporta el canvas");
+		}
+	};
+	</script>
+</head>
+<body>
+	<h1>Manejo de filtros con canvas</h1>
+	<canvas id="canvas" width="500px" height="300px">
+		Tu navegador no soporta canvas
+	</canvas>
+	<div>
+		<label for="Imagen">Imagen:</label>
+		<select name="Imagen" id="archivo">
+			<option value="">--archivo--</option>
+			<option value="img1.jpg">Primera imagen</option>
+			<option value="img2.jpg">Segunda imagen</option>
+		</select>
+		<label for="Filtro">Filtro:</label>
+		<select name="Filtro" id="filtro">
+			<option value="">--filtro--</option>
+			<option value="grises">Blanco y Negro</option>
+			<option value="oscurecer">Oscurecer</option>
+			<option value="flip">Flip horizontal</option>
+		</select>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Primer ejemplo de herencia</title>
+	<script>
+	function Animal () {
+		this.nombre = "Animal";
+		this.toString = function () {
+			return this.nombre;
+		}
+	}
+	function Mamifero () {
+		this.nombre = "Mamifero";
+	}
+	function Gato (color,genero) {
+		this.nombre = "Gato";
+		this.color = color;
+		this.genero = genero;
+		this.saludar = function (argument) {
+			return "Hola, soy un " + this.nombre + " de color " + this.color + " y soy " + this.genero;
+		}
+	}
+
+	//Herencia
+	Mamifero.prototype = new Animal();
+	Gato.prototype = new Mamifero();
+
+	//Instancia
+	var benito = new Gato("azul","macho");
+	console.log(benito.saludar());
+	console.log(benito.toString());
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
