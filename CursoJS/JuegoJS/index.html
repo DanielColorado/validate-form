@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="reto del caballo, desafio del caballo, jotajota caballo, jotajotavm caballo, juego del caballo">
+  	<meta name="description" content="Juego para pensar basado en el movimiento del caballo de ajedrez">
+  	<meta name="author" content="jotajota">
+	<title>Horse Challenge | Reto del Caballo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="css/font.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link href='http://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet' type='text/css'>
+
+	<link rel="shortcut icon" href="horse.gif" type="image/x-icon">
+
+	<script src="js/modernizr.custom.60251.js"></script>
+
+</head>
+<body>
+	<div id="content">
+		<div id="game">
+			<div id="title">
+				<div class="twitter">
+					<a href="https://twitter.com/JoseCodFacilito" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @JoseCodFacilito</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+					<a href="https://twitter.com/share" class="twitter-share-button" data-via="JoseCodFacilito" data-size="large" data-count="none" data-text="Juego de El Reto del Caballo de Ajedrez | Horse Chess Challenge Game ">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+				</div>
+				<div>
+					<h1>Horse Challenge</h1>
+					<h1>Reto del Caballo</h1>
+				</div>
+				<div id="scores">
+					<div id="level_center">
+						<div id="score_level" class="score">
+							<p>Level</p>
+							<p id="level">1</p>
+						</div>
+					</div>
+					<div class="score">
+						<p>Moves</p>
+						<p id="moves">63</p>
+					</div>
+					<div class="score">
+						<p>Time</p>
+						<p id="time"><span id="minutes">00</span>:<span id="seconds">00</span></p>
+					</div>
+					<div id="score_lifes" class="score">
+						<p>Lifes</p>
+						<p id="lifes">1</p>
+					</div>
+					<div class="score">
+						<p>Options</p>
+						<div id="meter_bonus"></div>
+						<p id="global_options"><span id="options">0</span><span id="bonus"></span></p>
+					</div>
+				</div>
+			</div>
+			<div id="content_board">
+				<div id="board">
+					<div class="rows">
+						<div class="row">
+							<div id="c07" onclick="CheckCell(0,7)" class="cell white"><div class="option" id="o07"></div><div class="signed" id="i07"></div></div>
+							<div id="c17" onclick="CheckCell(1,7)" class="cell black"><div class="option" id="o17"></div><div class="signed" id="i17"></div></div>
+							<div id="c27" onclick="CheckCell(2,7)" class="cell white"><div class="option" id="o27"></div><div class="signed" id="i27"></div></div>
+							<div id="c37" onclick="CheckCell(3,7)" class="cell black"><div class="option" id="o37"></div><div class="signed" id="i37"></div></div>
+							<div id="c47" onclick="CheckCell(4,7)" class="cell white"><div class="option" id="o47"></div><div class="signed" id="i47"></div></div>
+							<div id="c57" onclick="CheckCell(5,7)" class="cell black"><div class="option" id="o57"></div><div class="signed" id="i57"></div></div>
+							<div id="c67" onclick="CheckCell(6,7)" class="cell white"><div class="option" id="o67"></div><div class="signed" id="i67"></div></div>
+							<div id="c77" onclick="CheckCell(7,7)" class="cell black"><div class="option" id="o77"></div><div class="signed" id="i77"></div></div>
+						</div>
+						<div class="row">
+							<div id="c06" onclick="CheckCell(0,6)" class="cell black"><div class="option" id="o06"></div><div class="signed" id="i06"></div></div>
+							<div id="c16" onclick="CheckCell(1,6)" class="cell white"><div class="option" id="o16"></div><div class="signed" id="i16"></div></div>
+							<div id="c26" onclick="CheckCell(2,6)" class="cell black"><div class="option" id="o26"></div><div class="signed" id="i26"></div></div>
+							<div id="c36" onclick="CheckCell(3,6)" class="cell white"><div class="option" id="o36"></div><div class="signed" id="i36"></div></div>
+							<div id="c46" onclick="CheckCell(4,6)" class="cell black"><div class="option" id="o46"></div><div class="signed" id="i46"></div></div>
+							<div id="c56" onclick="CheckCell(5,6)" class="cell white"><div class="option" id="o56"></div><div class="signed" id="i56"></div></div>
+							<div id="c66" onclick="CheckCell(6,6)" class="cell black"><div class="option" id="o66"></div><div class="signed" id="i66"></div></div>
+							<div id="c76" onclick="CheckCell(7,6)" class="cell white"><div class="option" id="o76"></div><div class="signed" id="i76"></div></div>
+						</div>
+						<div class="row">
+							<div id="c05" onclick="CheckCell(0,5)" class="cell white"><div class="option" id="o05"></div><div class="signed" id="i05"></div></div>
+							<div id="c15" onclick="CheckCell(1,5)" class="cell black"><div class="option" id="o15"></div><div class="signed" id="i15"></div></div>
+							<div id="c25" onclick="CheckCell(2,5)" class="cell white"><div class="option" id="o25"></div><div class="signed" id="i25"></div></div>
+							<div id="c35" onclick="CheckCell(3,5)" class="cell black"><div class="option" id="o35"></div><div class="signed" id="i35"></div></div>
+							<div id="c45" onclick="CheckCell(4,5)" class="cell white"><div class="option" id="o45"></div><div class="signed" id="i45"></div></div>
+							<div id="c55" onclick="CheckCell(5,5)" class="cell black"><div class="option" id="o55"></div><div class="signed" id="i55"></div></div>
+							<div id="c65" onclick="CheckCell(6,5)" class="cell white"><div class="option" id="o65"></div><div class="signed" id="i65"></div></div>
+							<div id="c75" onclick="CheckCell(7,5)" class="cell black"><div class="option" id="o75"></div><div class="signed" id="i75"></div></div>
+						</div>
+						<div class="row">
+							<div id="c04" onclick="CheckCell(0,4)" class="cell black"><div class="option" id="o04"></div><div class="signed" id="i04"></div></div>
+							<div id="c14" onclick="CheckCell(1,4)" class="cell white"><div class="option" id="o14"></div><div class="signed" id="i14"></div></div>
+							<div id="c24" onclick="CheckCell(2,4)" class="cell black"><div class="option" id="o24"></div><div class="signed" id="i24"></div></div>
+							<div id="c34" onclick="CheckCell(3,4)" class="cell white"><div class="option" id="o34"></div><div class="signed" id="i34"></div></div>
+							<div id="c44" onclick="CheckCell(4,4)" class="cell black"><div class="option" id="o44"></div><div class="signed" id="i44"></div></div>
+							<div id="c54" onclick="CheckCell(5,4)" class="cell white"><div class="option" id="o54"></div><div class="signed" id="i54"></div></div>
+							<div id="c64" onclick="CheckCell(6,4)" class="cell black"><div class="option" id="o64"></div><div class="signed" id="i64"></div></div>
+							<div id="c74" onclick="CheckCell(7,4)" class="cell white"><div class="option" id="o74"></div><div class="signed" id="i74"></div></div>
+						</div>
+						<div class="row">
+							<div id="c03" onclick="CheckCell(0,3)" class="cell white"><div class="option" id="o03"></div><div class="signed" id="i03"></div></div>
+							<div id="c13" onclick="CheckCell(1,3)" class="cell black"><div class="option" id="o13"></div><div class="signed" id="i13"></div></div>
+							<div id="c23" onclick="CheckCell(2,3)" class="cell white"><div class="option" id="o23"></div><div class="signed" id="i23"></div></div>
+							<div id="c33" onclick="CheckCell(3,3)" class="cell black"><div class="option" id="o33"></div><div class="signed" id="i33"></div></div>
+							<div id="c43" onclick="CheckCell(4,3)" class="cell white"><div class="option" id="o43"></div><div class="signed" id="i43"></div></div>
+							<div id="c53" onclick="CheckCell(5,3)" class="cell black"><div class="option" id="o53"></div><div class="signed" id="i53"></div></div>
+							<div id="c63" onclick="CheckCell(6,3)" class="cell white"><div class="option" id="o63"></div><div class="signed" id="i63"></div></div>
+							<div id="c73" onclick="CheckCell(7,3)" class="cell black"><div class="option" id="o73"></div><div class="signed" id="i73"></div></div>
+						</div>
+						<div class="row">
+							<div id="c02" onclick="CheckCell(0,2)" class="cell black"><div class="option" id="o02"></div><div class="signed" id="i02"></div></div>
+							<div id="c12" onclick="CheckCell(1,2)" class="cell white"><div class="option" id="o12"></div><div class="signed" id="i12"></div></div>
+							<div id="c22" onclick="CheckCell(2,2)" class="cell black"><div class="option" id="o22"></div><div class="signed" id="i22"></div></div>
+							<div id="c32" onclick="CheckCell(3,2)" class="cell white"><div class="option" id="o32"></div><div class="signed" id="i32"></div></div>
+							<div id="c42" onclick="CheckCell(4,2)" class="cell black"><div class="option" id="o42"></div><div class="signed" id="i42"></div></div>
+							<div id="c52" onclick="CheckCell(5,2)" class="cell white"><div class="option" id="o52"></div><div class="signed" id="i52"></div></div>
+							<div id="c62" onclick="CheckCell(6,2)" class="cell black"><div class="option" id="o62"></div><div class="signed" id="i62"></div></div>
+							<div id="c72" onclick="CheckCell(7,2)" class="cell white"><div class="option" id="o72"></div><div class="signed" id="i72"></div></div>
+						</div>
+						<div class="row">
+							<div id="c01" onclick="CheckCell(0,1)" class="cell white"><div class="option" id="o01"></div><div class="signed" id="i01"></div></div>
+							<div id="c11" onclick="CheckCell(1,1)" class="cell black"><div class="option" id="o11"></div><div class="signed" id="i11"></div></div>
+							<div id="c21" onclick="CheckCell(2,1)" class="cell white"><div class="option" id="o21"></div><div class="signed" id="i21"></div></div>
+							<div id="c31" onclick="CheckCell(3,1)" class="cell black"><div class="option" id="o31"></div><div class="signed" id="i31"></div></div>
+							<div id="c41" onclick="CheckCell(4,1)" class="cell white"><div class="option" id="o41"></div><div class="signed" id="i41"></div></div>
+							<div id="c51" onclick="CheckCell(5,1)" class="cell black"><div class="option" id="o51"></div><div class="signed" id="i51"></div></div>
+							<div id="c61" onclick="CheckCell(6,1)" class="cell white"><div class="option" id="o61"></div><div class="signed" id="i61"></div></div>
+							<div id="c71" onclick="CheckCell(7,1)" class="cell black"><div class="option" id="o71"></div><div class="signed" id="i71"></div></div>
+						</div>
+						<div class="row">
+							<div id="c00" onclick="CheckCell(0,0)" class="cell black"><div class="option" id="o00"></div><div class="signed" id="i00"></div></div>
+							<div id="c10" onclick="CheckCell(1,0)" class="cell white"><div class="option" id="o10"></div><div class="signed" id="i10"></div></div>
+							<div id="c20" onclick="CheckCell(2,0)" class="cell black"><div class="option" id="o20"></div><div class="signed" id="i20"></div></div>
+							<div id="c30" onclick="CheckCell(3,0)" class="cell white"><div class="option" id="o30"></div><div class="signed" id="i30"></div></div>
+							<div id="c40" onclick="CheckCell(4,0)" class="cell black"><div class="option" id="o40"></div><div class="signed" id="i40"></div></div>
+							<div id="c50" onclick="CheckCell(5,0)" class="cell white"><div class="option" id="o50"></div><div class="signed" id="i50"></div></div>
+							<div id="c60" onclick="CheckCell(6,0)" class="cell black"><div class="option" id="o60"></div><div class="signed" id="i60"></div></div>
+							<div id="c70" onclick="CheckCell(7,0)" class="cell white"><div class="option" id="o70"></div><div class="signed" id="i70"></div></div>
+						</div>
+					</div>
+
+
+					<div id="message">
+						<p id="notification"></p>
+						<p id="data_message"></p>
+						<div id="share_panel" class="share">
+						    <p id="button" onclick="hide_message(true)"></p> 
+							<div id="tweet_game">
+								<div id="tweet_center">
+									<div id="tweet_gameover"></div>
+								</div>
+						    </div> 
+					    </div>	    
+					</div>
+								
+				</div>
+
+
+			</div>
+			<div id="rules">
+				<div class="info">
+					<p class="english">Move the horse over board to complete all cells.</p>
+					<p class="english">Game created by José Javier Villena</p>
+				</div>
+				<div class="info">
+					<p class="spanish">Mueve el caballo a lo largo del tablero hasta haber ocupado todas las casillas.</p>
+					<p class="spanish">Juego creado por José Javier Villena</p>
+				</div>
+				<div class="info">
+					<p class="contact">Twitter: <a href="https://twitter.com/JoseCodFacilito" target="_blank">@JoseCodFacilito</a></p>
+					<p class="contact">Youtube: <a href="http://youtube.com/user/jotajotavm?sub_confirmation=1" target="_blank">jotajotavm</a></p>
+					<p class="contact"><a href="https://github.com/jotajotavm/horse-chess" target="_blank">Fork me in GitHub</a></p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<script src="js/startmanager.js"></script>
+	<script src="js/messagemanager.js"></script>
+	<script src="js/timemanager.js"></script>
+	<script src="js/boardmanager.js"></script>
+	<script src="js/autoplay.js"></script> 
+</body>
+</html>
