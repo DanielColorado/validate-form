@@ -1,0 +1,27 @@
+body{
+	background: #eee;
+}
+
+#DateNow{
+	width: 80%;
+	margin: 0 auto;
+	#Date,#Time{
+		display: inline-block;
+		background: black;
+		color: white;
+		padding: 10px;
+	}
+	#Date{
+		
+		.day,.month,.year{
+			display: inline-block;
+			font-size: 20px;
+		}
+	}
+	#Time{
+		.hours,.minutes,.seconds,.pm-am{
+			display: inline-block;
+			font-size: 50px;
+		}
+	}
+}
