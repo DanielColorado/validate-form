@@ -31,6 +31,7 @@ document.onkeyup = function () {
 var nombre = hashTag("nombre");
 var apellido = hashTag("apellido_paterno");
 var apellidoM = hashTag("apellido_materno");
+var edad = hashTag("edad");
 var Email = hashTag("correo");
 var genere = byName("rb_genere");
 var hobbies = byName("cbhobies");
@@ -47,6 +48,7 @@ var arreglo_inputs = [];
 var ValidateInput = new Validate(nombre, nombre.nextElementSibling,[["required"],["minLength",2]],["blur"]);
 var ValidateInputAp = new Validate(apellido, apellido.nextElementSibling,[["required"],["minLength",5]],["focus","keyup"]);
 var ValidateInputAm = new Validate(apellidoM, apellidoM.nextElementSibling,[["required"],["minMaxLength",3,10]],["keyup"]);
+var ValidateInputEdad = new Validate(edad, edad.nextElementSibling,[["required"],["number"]],["keyup"]);
 var ValidateInputG = new Validate(genere, genere[genere.length-1].nextElementSibling.nextElementSibling,[["checked"]],["clickRB"]);
 var ValidateInputH = new Validate(hobbies, hobbies[hobbies.length-1].nextElementSibling.nextElementSibling,[["checked"]],["clickRB"]);
 var ValidateInputEmail = new Validate(Email, Email.nextElementSibling,[["required"],["email"]],["blur"]);
@@ -55,6 +57,7 @@ var ValidateInputEmail = new Validate(Email, Email.nextElementSibling,[["require
 arreglo_inputs.push(ValidateInput);
 arreglo_inputs.push(ValidateInputAp);
 arreglo_inputs.push(ValidateInputAm);
+arreglo_inputs.push(ValidateInputEdad);
 arreglo_inputs.push(ValidateInputG);
 arreglo_inputs.push(ValidateInputH);
 arreglo_inputs.push(ValidateInputEmail);

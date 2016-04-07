@@ -51,6 +51,8 @@ Validate.prototype.validateAll = function(cleanArray) {
 	for(var item in this.arrValidate){
 		if(this.arrValidate[item][0] === "required")
 			this.evalLength();
+		if(this.arrValidate[item][0] === "number")
+			this.isNumber();
 		if(this.arrValidate[item][0] === "email")
 			this.validateEmail(this.arrValidate[item][1]);
 		if(this.arrValidate[item][0] === "checked")
@@ -74,6 +76,12 @@ Validate.prototype.evalLength = function() {
 	}else{
 		this.errores.push(["El campo es aprobado",new TypeMSG(1,"correct")]);
 	}
+};
+
+Validate.prototype.isNumber = function() {
+	var boolNumber = isNaN(this.element.value);
+	if(boolNumber)
+		this.errores.push(["El campo debe contener un numero",new TypeMSG(3,"error")]);
 };
 
 /** Funcion que nos dice si se selecciono al menos un elemento del tipo radio o checkbox **/
